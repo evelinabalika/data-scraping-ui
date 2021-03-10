@@ -1,0 +1,35 @@
+{
+  "Processes": [
+    {
+      "pid": 444,
+      "pname": "smss.exe"
+      
+    },
+    {
+      "pid": 884,
+      "pname": "services.exe"
+      
+    },
+    {
+      "pid": 1020,
+      "pname": "svchost.exe"
+      
+    },
+    {
+      "pid": 1064,
+      "pname": "winlogon.exe"
+     
+    },
+    {
+      "pid": 1280,
+      "pname": "dwm.exe"
+    },
+    {
+      "pid": 2960,
+      "pname": "dasHost.exe"
+    }
+  ],
+  "Notification": {
+    "Message": "Any dummy message"
+  }
+}

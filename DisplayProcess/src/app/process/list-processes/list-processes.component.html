@@ -1,0 +1,9 @@
+<div class=container>
+    <div class="bg-primary"></div>
+    <ul class="list-group" *ngFor="let proc of listProcess">
+        <li class="list-group-item list-group-item-primary">
+            <input class="form-check-input me-1" type="checkbox">
+            {{ proc.pname + ' ' + proc.pid}}
+        </li>
+    </ul>
+</div>
