@@ -15,16 +15,12 @@ export class GetUrlService {
   }
 
   private api = environment.api;
-
-
-
+  
   getUrl(url: string):Observable<any>
   {
-      console.log(this.api);
-      //headers: HttpHeaders;
+      //console.log(this.api); 
       const headers = {'Content-Type':'application/json'};
       const body = {url: url};
       return this.http.post<any>(this.api, body , {headers});
-  }
-
+  }      
 }

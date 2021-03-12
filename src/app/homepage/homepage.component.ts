@@ -1,4 +1,5 @@
 import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
+import { Variable } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit } from '@angular/core';
 import { GetUrlService } from '../services/get-url.service';
 
@@ -10,7 +11,8 @@ import { GetUrlService } from '../services/get-url.service';
 export class HomepageComponent implements OnInit {
 
   public url: string;
-  public message: string;
+  public output = new Array<string>();
+  public ids = new Array<string>();
 
   constructor(private getURLService: GetUrlService) { 
   }
@@ -20,12 +22,22 @@ export class HomepageComponent implements OnInit {
 
   public submit()
   {
+    this.ids = new Array<string>();
     var input = ((document.getElementById("input") as HTMLInputElement).value);
     this.url = input;
-    //console.log(input);
-    this.getURLService.getUrl(this.url).subscribe((result) =>{
-       console.log(JSON.stringify(result));
-       this.message = JSON.stringify(result.message);
+
+    this.getURLService.getUrl(input).subscribe((result) =>{
+      this.output = result.div_tags || result.table_tags;
+      console.log(this.output);
+      
+      for(var i=0; i < this.output.length ; i++)
+      {
+        var parser = new DOMParser().parseFromString(this.output[i], "text/xml");
+        if (parser.children[0].id) 
+          this.ids.push(parser.children[0].id);
+        else if(parser.children[0].className)
+          this.ids.push(parser.children[0].className)
+      }
     });
   }
 }
