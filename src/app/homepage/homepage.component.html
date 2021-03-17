@@ -11,10 +11,16 @@
         </div>
       </div>
       <p>URL entered was: {{url}}</p>
-      <div class="form-check" *ngFor="let id of ids">
+      <div class="form-check" *ngFor="let tableId of tableIds">
         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
         <label class="form-check-label" for="flexCheckDefault">
-          {{id}}
+          {{tableId}}
+        </label>
+      </div>
+      <div class="form-check" *ngFor="let divId of divIds">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          {{divId}}
         </label>
       </div>
     </div>
