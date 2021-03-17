@@ -12,7 +12,7 @@ export class ProcessService {
 
     getAllProcess(): Observable<any> {
        
-        const processtUrl = 'http://localhost:4200/assets/data/db.json';
-        return this.httpClient.get(processtUrl);
+        const processtUrl = 'process';
+        return this.httpClient.get<any>(processtUrl);
     }
 }

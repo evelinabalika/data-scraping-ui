@@ -9,7 +9,9 @@ import {ProcessService} from '../../processmanipulation/process.service';
 })
 export class ListProcessesComponent implements OnInit {
 
-    listProcess!: Proces[];
+    
+
+    public listProcess = new Array<Proces>();
     private processService: ProcessService;
 
     constructor(processService: ProcessService) {
@@ -17,10 +19,21 @@ export class ListProcessesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.processService.getAllProcess().subscribe(data => {
-            this.listProcess = data.Processes;
-            console.log(this.listProcess);
-        });
+
     }
+
+
+
+    fetchProcess() {
+        this.processService.getAllProcess().subscribe(data => {
+            this.listProcess = data;
+            
+        });
+
+
+
+    }
+
+
 
 }
