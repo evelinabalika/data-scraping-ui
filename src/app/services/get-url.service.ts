@@ -14,13 +14,20 @@ export class GetUrlService {
 
   }
 
-  private api = environment.api;
+  private sendUrlAPI = environment.sendUrlAPI;
+  private sendCheckedAPI = environment.sendCheckedAPI;
   
   getUrl(url: string):Observable<any>
   {
-      //console.log(this.api); 
       const headers = {'Content-Type':'application/json'};
-      const body = {url: url};
-      return this.http.post<any>(this.api, body , {headers});
+      const body = {'url': url};
+      return this.http.post<any>(this.sendUrlAPI, body , {headers});
   }      
+
+  sendChecked(checkboxesChecked: Array<string>): Observable<any>
+  {
+    const headers = {'Content-Type':'application/json'};
+    const body = {'checkboxesChecked': checkboxesChecked};
+    return this.http.post<any>(this.sendCheckedAPI, body, {headers});
+  }
 }

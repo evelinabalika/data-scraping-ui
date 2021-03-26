@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  api: 'http://127.0.0.1:5000/web_scraper'
+  sendUrlAPI: 'http://127.0.0.1:5000/web_scraper',
+  sendCheckedAPI: 'http://127.0.0.1:5000/input_validator'
 };
 
 /*
