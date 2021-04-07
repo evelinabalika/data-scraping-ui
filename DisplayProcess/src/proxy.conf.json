@@ -1,7 +1,23 @@
 {
-  "/api/*": {
-    "target": "http://localhost",
-    "secure": false,
-    "logLevel": "debug"
+  "/process/*":{
+  
+  "target": "http://127.0.0.1:5000",
+  "secure": false,
+  "logLevel": "debug"
+  
+  
+  },
+  
+  "/add_to_db/*":{
+  
+      "target": "http://127.0.0.1:5000",
+      "secure": false,
+      "logLevel": "debug",
+      "changeOrigin": true
+      
+      
+      }
+  
+  
+  
   }
-}

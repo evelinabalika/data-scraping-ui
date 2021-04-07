@@ -1,6 +1,8 @@
 export interface Proces {
 
     pid: number;
-    pname:string;
+    p_name:string;
+    selected: boolean;
+    message: string;
 
 }
