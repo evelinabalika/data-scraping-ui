@@ -18,5 +18,6 @@ steps:
 - script: |
     npm install -g @angular/cli
     npm install
+    ng update @angular/cli @angular/core
     ng build --prod
   displayName: 'npm install and build'
