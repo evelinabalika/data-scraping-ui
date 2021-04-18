@@ -8,7 +8,6 @@ trigger:
 
 pool:
   name: Azure Pipelines
-  vmImage: ubuntu-latest
 steps:
 - task: NodeTool@0
   displayName: 'Use Node 12.x'
@@ -20,6 +19,7 @@ steps:
   inputs:
     workingDir: DisplayProcess
     verbose: false
+
 
 - script: |
     npm install -g @angular/cli
