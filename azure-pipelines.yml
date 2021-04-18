@@ -8,25 +8,35 @@ trigger:
 
 pool:
   name: Azure Pipelines
-steps:
-- task: NodeTool@0
-  displayName: 'Use Node 12.x'
-  inputs:
-    versionSpec: 12.x
 
-- task: Npm@1
-  displayName: 'npm install'
-  inputs:
-    workingDir: DisplayProcess
-    verbose: false
+  jobs:
+  - deployment: VMDeploy
+  displayName: web
+  environment:
+    name:  <environment name>
+    resourceType: VirtualMachine
+    tags: web1
+  strategy:
+
+    steps:
+    - task: NodeTool@0
+      displayName: 'Use Node 12.x'
+      inputs:
+        versionSpec: 12.x
+
+    - task: Npm@1
+      displayName: 'npm install'
+      inputs:
+        workingDir: DisplayProcess
+        verbose: false
 
 
-- script: |
-    npm install -g @angular/cli
-    npm install
-    ng build --prod
-    npm run test --if-present
-  displayName: 'npm install ,build and test'
+    - script: |
+        npm install -g @angular/cli
+        npm install
+        ng build --prod
+        npm run test --if-present
+      displayName: 'npm install ,build and test'
 
 
   
