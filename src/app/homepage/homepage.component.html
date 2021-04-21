@@ -10,6 +10,14 @@
             (click)=submitUrl() type="reset" value="reset">Submit Url</button>
         </div>
       </div>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Check URL" id="urlInput" aria-label="Check Url"
+          aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" style=background-color:rgb(0,162,255) type="button"
+            (click)=checkSaved() type="reset" value="reset">Check URL</button>
+        </div>
+      </div>
       <div>
         URL entered was: {{url}}
       </div>
@@ -21,20 +29,15 @@
       </div>
       <div>
         <button class="btn btn-outline-secondary" style=background-color:rgb(0,162,255) type="button"
-        (click)=submitCheckboxes() type="reset" value="reset">Submit Check Boxes</button>
+          (click)=submitCheckboxes() type="reset" value="reset">Submit Check Boxes</button>
       </div>
-      <div class="form-check" *ngFor="let tableId of tableIds">
-        <input class="form-check-input" type="checkbox" value="" id=tableId (click)=append(tableId)>
-        <label class="form-check-label" for="flexCheckDefault">
-          {{tableId}}
-        </label>
-      </div>
-      <div class="form-check" *ngFor="let divId of divIds">
-        <input class="form-check-input" type="checkbox" name="checkboxName" value="" id=divId
-          (click)=append($event,divId)>
-        <label class="form-check-label" for="flexCheckDefault" name="">
-          {{divId}}
-        </label>
+      <div>
+        <div class="form-check" *ngFor="let checkboxes of checkboxList">
+          <input class="form-check-input" type="checkbox" value="" id=checkboxes (click)=append($event,checkboxes)>>
+          <label class="form-check-label" for="flexCheckDefault">
+            {{checkboxes}}
+          </label>
+        </div>
       </div>
     </div>
   </form>

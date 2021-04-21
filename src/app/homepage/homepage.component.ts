@@ -10,13 +10,13 @@ import { GetUrlService } from '../services/get-url.service';
 })
 export class HomepageComponent implements OnInit {
   public url: string;
-  public tableTags = new Array<string>();
-  public divTags = new Array<string>();
-  public tableIds = new Array<string>();
-  public divIds = new Array<string>();
-  public checkboxesChecked = new Array<any>();
+  public backendData = new Array<string>();
+  public checkboxList = new Array<string>();
+  public checkboxesChecked = new Array<string>();
   public errorMessage: string;
   public backendMessage: string;
+  public checkUrl: string;
+  public savedData = new Array<string>();
 
   constructor(private getURLService: GetUrlService) {
 
@@ -27,44 +27,31 @@ export class HomepageComponent implements OnInit {
   }
 
   public submitUrl() {
+    this.checkboxesChecked = [];
     var input = ((document.getElementById("input") as HTMLInputElement).value);
     this.url = input;
+    this.checkboxesChecked.push(this.url);
 
     this.getURLService.getUrl(input).subscribe((result) => {
-      this.tableTags = result.table_tags;
-      this.divTags = result.div_tags;
-      this.getTableIds();
-      this.getDivIds();
-      this.checkboxesChecked.push(this.url); // append URL to index 0
+      this.backendData = result;
+      this.createCheckboxes();
     });
   }
-  // get IDs of tables and divs
-  public getTableIds() {
-    for (var i = 0; i < this.tableTags.length; i++) {
-      var parser = new DOMParser().parseFromString(this.tableTags[i], "text/xml");
-      if (parser.children[0].id)
-        this.tableIds.push(parser.children[0].id);
-      else if (parser.children[0].className)
-        this.tableIds.push(parser.children[0].className)
+
+  // go through array being received from backend and push to checkboxList array in order to display on UI
+  public createCheckboxes() {
+    for (var i = 0; i < this.backendData.length; i++) {
+      this.checkboxList.push(JSON.stringify(this.backendData[i]).replace(/"/g, "'"));
     }
   }
 
-  public getDivIds() {
-    for (var i = 0; i < this.divTags.length; i++) {
-      var parser = new DOMParser().parseFromString(this.divTags[i], "text/xml");
-      if (parser.children[0].id)
-        this.divIds.push(parser.children[0].id);
-      else if (parser.children[0].className)
-        this.divIds.push(parser.children[0].className)
-    }
-  }
-
-  public append(event, divId) {
+  // append checked checkboxes to array that can be sent to the backend
+  public append(event, checked) {
     if (event.target.checked == true) {
-      this.checkboxesChecked.push(divId);
+      this.checkboxesChecked.push(checked);
     }
     else {
-      const index = this.checkboxesChecked.indexOf(divId);
+      const index = this.checkboxesChecked.indexOf(checked);
       this.checkboxesChecked.splice(index, 1);
     }
     console.log(this.checkboxesChecked);
@@ -73,17 +60,29 @@ export class HomepageComponent implements OnInit {
   public submitCheckboxes() {
     var checks;
     checks = this.checkboxesChecked;
-    if (checks.length < 5 && checks.length > 1) {
+    if (checks.length > 1) {
       this.getURLService.sendChecked(checks).subscribe((result) => {
-        console.log(result);
         console.log(result.message);
         this.backendMessage = ("Message from database: " + result.message);
+        this.checkboxesChecked = [];
+        this.checkboxesChecked.push(this.url);
       });
     }
     else {
-      this.errorMessage = "Error: Please check 1-3 checkboxes.";
+      this.errorMessage = "Error: Please check at least one checkbox.";
       this.checkboxesChecked = [];
       this.checkboxesChecked.push(this.url);
     }
+  }
+
+  public checkSaved() {
+    var input = ((document.getElementById("urlInput") as HTMLInputElement).value);
+    this.checkUrl = input;
+
+    this.getURLService.getSaved(input).subscribe((result) => {
+      this.savedData = result;
+      this.backendMessage = ("Message from database: " + result.message);
+      console.log(result);
+    });
   }
 }
